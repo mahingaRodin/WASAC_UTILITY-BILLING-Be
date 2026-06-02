@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: template_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: template_db
+      POSTGRES_USER: template_user
+      POSTGRES_PASSWORD: template_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - template_postgres_data:/var/lib/postgresql/data
+    networks:
+      - template_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: template_app
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "4000:4000"
+    environment:
+      SERVER_PORT: 4000
+
+      DB_USERNAME: template_user
+      DB_PASSWORD: template_password
+      DB_URL: jdbc:postgresql://postgres:5432/template_db
+
+      JWT_SECRET: change-this-secret-key-in-production
+      JWT_EXPIRATION: 3600
+
+      MAIL_HOST: smtp.gmail.com
+      MAIL_PORT: 587
+      MAIL_USERNAME: your-email@gmail.com
+      MAIL_PASSWORD: your-app-password
+    networks:
+      - template_network
+
+volumes:
+  template_postgres_data:
+
+networks:
+  template_network:
+    driver: bridge
