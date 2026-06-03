@@ -1,4 +1,0 @@
--- Initial Flyway migration.
--- Keep this file as the first migration.
--- Add database tables or other objects in future migrations, for example:
--- V2__create_users_table.sql
