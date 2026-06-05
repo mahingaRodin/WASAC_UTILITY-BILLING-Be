@@ -36,6 +36,10 @@ public class MeterReading {
     @JoinColumn(name = "meter_id")
     private Meter meter;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recorded_by_user_id")
+    private User recordedBy;
+
     @Column(name = "previous_reading", nullable = false, precision = 16, scale = 3)
     private BigDecimal previousReading;
 
