@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get Payments by Bill Reference
+method: GET
+url: '{{baseUrl}}/api/payments/bill/{{billReference}}'
+order: 7000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

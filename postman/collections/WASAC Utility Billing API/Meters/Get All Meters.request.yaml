@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get All Meters
+method: GET
+url: '{{baseUrl}}/api/meters'
+order: 2000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

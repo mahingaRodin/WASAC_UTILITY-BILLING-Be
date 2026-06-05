@@ -1,0 +1,41 @@
+$kind: http-request
+name: Create Bill
+method: POST
+url: '{{baseUrl}}/api/bills'
+order: 1000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "billReference": "BILL-2024-001",
+      "customerId": "{{customerId}}",
+      "meterId": "{{meterId}}",
+      "billingYear": 2024,
+      "billingMonth": 6,
+      "unitsConsumed": 25.50,
+      "amountDue": 5500.00,
+      "dueDate": "2024-07-15",
+      "status": "UNPAID",
+      "lineItems": [
+        {
+          "itemType": "CONSUMPTION",
+          "description": "Water consumption 25.5 m3",
+          "quantity": 25.50,
+          "unitPrice": 200.00
+        },
+        {
+          "itemType": "FIXED_SERVICE",
+          "description": "Fixed service charge",
+          "quantity": 1,
+          "unitPrice": 500.00
+        }
+      ]
+    }

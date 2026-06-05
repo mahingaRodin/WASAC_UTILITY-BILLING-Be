@@ -1,0 +1,28 @@
+$kind: http-request
+name: Update Customer
+method: PUT
+url: '{{baseUrl}}/api/customers/{{customerId}}'
+order: 4000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "fullName": "Alice Uwimana Updated",
+      "email": "alice.updated@example.com",
+      "phone": "+250788111112",
+      "address": {
+        "province": "Kigali",
+        "district": "Gasabo",
+        "sector": "Kimironko",
+        "cell": "Bibare",
+        "village": "Nyarutarama"
+      }
+    }

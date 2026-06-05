@@ -1,0 +1,10 @@
+# Use this workspace to collaborate
+workspace:
+  id: dd31b299-4ea4-4cf6-8dcf-7fff637b466c
+
+localResources:
+  docs:
+    - ..\readme.md
+    - ..\docs\WASAC_ERD.md
+    - ..\docs\ARCHITECTURE.md
+    - ..\docs\TEST_FLOW.md

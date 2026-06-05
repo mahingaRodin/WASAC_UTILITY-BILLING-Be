@@ -1,0 +1,10 @@
+$kind: http-request
+name: Download Bill Receipt
+method: GET
+url: '{{baseUrl}}/api/bills/{{billId}}/receipt'
+order: 11000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

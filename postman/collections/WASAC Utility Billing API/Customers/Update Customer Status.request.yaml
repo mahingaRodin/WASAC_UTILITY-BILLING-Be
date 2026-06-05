@@ -1,0 +1,19 @@
+$kind: http-request
+name: Update Customer Status
+method: PATCH
+url: '{{baseUrl}}/api/customers/{{customerId}}/status'
+order: 5000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "status": "INACTIVE"
+    }

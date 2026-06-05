@@ -1,0 +1,23 @@
+$kind: http-request
+name: Create Meter
+method: POST
+url: '{{baseUrl}}/api/meters'
+order: 1000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "meterNumber": "MTR-001-2024",
+      "type": "WATER",
+      "installationDate": "2024-01-15",
+      "status": "ACTIVE",
+      "customerId": "{{customerId}}"
+    }

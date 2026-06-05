@@ -1,0 +1,10 @@
+$kind: http-request
+name: Approve Bill
+method: POST
+url: '{{baseUrl}}/api/bills/{{billId}}/approve'
+order: 4000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

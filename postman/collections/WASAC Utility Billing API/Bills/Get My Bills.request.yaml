@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get My Bills
+method: GET
+url: '{{baseUrl}}/api/bills/me'
+order: 9000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

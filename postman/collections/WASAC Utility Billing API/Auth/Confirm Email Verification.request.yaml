@@ -1,0 +1,17 @@
+$kind: http-request
+name: Confirm Email Verification
+method: POST
+url: '{{baseUrl}}/api/auth/verify-email/confirm'
+order: 5000
+auth:
+  type: noauth
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "john@example.com",
+      "otp": "123456"
+    }

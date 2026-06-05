@@ -1,0 +1,29 @@
+$kind: http-request
+name: Create Tariff
+method: POST
+url: '{{baseUrl}}/api/config/tariffs'
+order: 1000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "utilityType": "WATER",
+      "tariffType": "TIER_BASED",
+      "flatRate": null,
+      "effectiveFrom": "2024-01-01",
+      "effectiveTo": null,
+      "version": 1,
+      "tiers": [
+        { "lowerBound": 0, "upperBound": 10, "rate": 150.00 },
+        { "lowerBound": 10, "upperBound": 30, "rate": 200.00 },
+        { "lowerBound": 30, "upperBound": null, "rate": 300.00 }
+      ]
+    }

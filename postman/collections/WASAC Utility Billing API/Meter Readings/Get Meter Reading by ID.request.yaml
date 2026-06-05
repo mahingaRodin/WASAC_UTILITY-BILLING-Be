@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get Meter Reading by ID
+method: GET
+url: '{{baseUrl}}/api/meter-readings/{{meterReadingId}}'
+order: 3000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

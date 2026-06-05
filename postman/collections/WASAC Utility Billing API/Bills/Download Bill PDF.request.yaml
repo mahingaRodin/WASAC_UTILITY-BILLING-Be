@@ -1,0 +1,10 @@
+$kind: http-request
+name: Download Bill PDF
+method: GET
+url: '{{baseUrl}}/api/bills/{{billId}}/pdf'
+order: 10000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

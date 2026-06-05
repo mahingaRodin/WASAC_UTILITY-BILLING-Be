@@ -1,0 +1,22 @@
+$kind: http-request
+name: Create Meter Reading
+method: POST
+url: '{{baseUrl}}/api/meter-readings'
+order: 1000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "meterId": "{{meterId}}",
+      "previousReading": 100.00,
+      "currentReading": 125.50,
+      "readingDate": "2024-06-01"
+    }

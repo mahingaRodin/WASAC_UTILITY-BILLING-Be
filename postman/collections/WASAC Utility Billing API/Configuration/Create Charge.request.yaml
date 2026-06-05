@@ -1,0 +1,25 @@
+$kind: http-request
+name: Create Charge
+method: POST
+url: '{{baseUrl}}/api/config/charges'
+order: 5000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "chargeType": "FIXED_SERVICE",
+      "utilityType": "WATER",
+      "valueType": "FIXED_AMOUNT",
+      "value": 500.00,
+      "effectiveFrom": "2024-01-01",
+      "effectiveTo": null,
+      "version": 1
+    }

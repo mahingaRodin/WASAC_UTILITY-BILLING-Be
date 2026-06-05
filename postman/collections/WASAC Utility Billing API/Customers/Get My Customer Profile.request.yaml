@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get My Customer Profile
+method: GET
+url: '{{baseUrl}}/api/customers/me'
+order: 7000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

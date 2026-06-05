@@ -1,0 +1,22 @@
+$kind: http-request
+name: Create Payment
+method: POST
+url: '{{baseUrl}}/api/payments'
+order: 1000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "billReference": "{{billReference}}",
+      "amountPaid": 5500.00,
+      "paymentMethod": "MOBILE_MONEY",
+      "paymentDate": "2024-06-20"
+    }

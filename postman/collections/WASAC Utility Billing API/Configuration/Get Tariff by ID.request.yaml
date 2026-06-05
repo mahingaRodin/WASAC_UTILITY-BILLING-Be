@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get Tariff by ID
+method: GET
+url: '{{baseUrl}}/api/config/tariffs/{{tariffId}}'
+order: 3000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

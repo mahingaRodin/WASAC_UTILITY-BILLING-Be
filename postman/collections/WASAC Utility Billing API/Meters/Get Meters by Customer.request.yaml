@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get Meters by Customer
+method: GET
+url: '{{baseUrl}}/api/meters/customer/{{customerId}}'
+order: 4000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

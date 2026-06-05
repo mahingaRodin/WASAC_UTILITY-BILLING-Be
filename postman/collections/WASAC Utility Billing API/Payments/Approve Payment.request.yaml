@@ -1,0 +1,10 @@
+$kind: http-request
+name: Approve Payment
+method: POST
+url: '{{baseUrl}}/api/payments/{{paymentId}}/approve'
+order: 3000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

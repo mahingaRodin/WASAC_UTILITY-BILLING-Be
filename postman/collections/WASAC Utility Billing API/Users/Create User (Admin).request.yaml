@@ -1,0 +1,23 @@
+$kind: http-request
+name: 'Create User (Admin)'
+method: POST
+url: '{{baseUrl}}/api/users'
+order: 1000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "fullName": "Jane Operator",
+      "email": "operator@wasac.rw",
+      "phone": "+250788000002",
+      "password": "password123",
+      "role": "ROLE_OPERATOR"
+    }

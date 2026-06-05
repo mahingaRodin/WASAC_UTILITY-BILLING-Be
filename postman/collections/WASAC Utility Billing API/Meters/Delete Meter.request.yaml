@@ -1,0 +1,10 @@
+$kind: http-request
+name: Delete Meter
+method: DELETE
+url: '{{baseUrl}}/api/meters/{{meterId}}'
+order: 6000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

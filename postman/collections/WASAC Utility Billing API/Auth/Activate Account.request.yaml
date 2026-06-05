@@ -1,0 +1,18 @@
+$kind: http-request
+name: Activate Account
+method: POST
+url: '{{baseUrl}}/api/auth/activate-account'
+order: 3000
+auth:
+  type: noauth
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "john@example.com",
+      "temporaryPassword": "tempPass123",
+      "newPassword": "newSecurePass123"
+    }

@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get Notifications by Customer
+method: GET
+url: '{{baseUrl}}/api/notifications/customer/{{customerId}}'
+order: 2000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

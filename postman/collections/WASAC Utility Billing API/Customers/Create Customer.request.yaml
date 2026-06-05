@@ -1,0 +1,30 @@
+$kind: http-request
+name: Create Customer
+method: POST
+url: '{{baseUrl}}/api/customers'
+order: 1000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nationalId": "1199880012345678",
+      "fullName": "Alice Uwimana",
+      "email": "alice@example.com",
+      "phone": "+250788111111",
+      "status": "ACTIVE",
+      "address": {
+        "province": "Kigali",
+        "district": "Gasabo",
+        "sector": "Kimironko",
+        "cell": "Bibare",
+        "village": "Nyarutarama"
+      }
+    }
