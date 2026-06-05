@@ -1,25 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Welcome to WASAC Utility Billing</title>
 </head>
-<body style="margin:0;padding:0;background:#f4f6f8;font-family:Arial,Helvetica,sans-serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f8;padding:32px 0;">
+<body style="margin:0;padding:0;background-color:#eef2f6;-webkit-font-smoothing:antialiased;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;font-size:1px;line-height:1px;color:#eef2f6;">
+    Your WASAC account is verified and ready to use.
+</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+       style="background-color:#eef2f6;padding:32px 12px;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
     <tr>
         <td align="center">
-            <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;padding:32px;">
+            <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"
+                   style="width:600px;max-width:600px;background-color:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(15,76,129,0.10);">
                 <tr>
-                    <td>
-                        <h2 style="margin:0 0 16px;color:#1f2937;">Welcome to <span th:text="${appName}">WASAC Utility Billing</span></h2>
-                        <p style="margin:0 0 16px;color:#4b5563;line-height:1.5;">
-                            Hi <span th:text="${userName}">User</span>,
+                    <td style="background-color:#0f4c81;padding:36px 36px 32px;text-align:center;">
+                        <div style="font-size:24px;font-weight:700;color:#ffffff;letter-spacing:0.5px;">WASAC</div>
+                        <div style="font-size:11px;color:#a9c7e4;letter-spacing:2px;text-transform:uppercase;margin-top:4px;">Utility Billing</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:4px;background-color:#059669;font-size:0;line-height:0;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="padding:40px 36px 8px;text-align:center;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+                            <tr>
+                                <td style="width:64px;height:64px;background-color:#ecfdf5;border-radius:50%;text-align:center;vertical-align:middle;font-size:30px;color:#059669;font-weight:700;line-height:64px;">&#10003;</td>
+                            </tr>
+                        </table>
+                        <h1 style="margin:22px 0 12px;font-size:24px;line-height:1.3;color:#0f172a;font-weight:700;">
+                            Welcome to <span th:text="${appName}">WASAC Utility Billing</span>
+                        </h1>
+                        <p style="margin:0 0 8px;font-size:15px;line-height:1.6;color:#334155;">
+                            Hi <strong style="color:#0f172a;" th:text="${userName}">User</strong>, your email has been verified
+                            and your account is ready to use.
                         </p>
-                        <p style="margin:0 0 16px;color:#4b5563;line-height:1.5;">
-                            Your email has been verified and your account is ready to use.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:24px 36px 8px;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                               style="background-color:#f1f6fb;border-radius:10px;">
+                            <tr>
+                                <td style="padding:20px 22px;">
+                                    <p style="margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:#0f4c81;">What you can do next</p>
+                                    <p style="margin:0 0 6px;font-size:14px;line-height:1.6;color:#334155;">&bull;&nbsp; View your meters and monthly consumption</p>
+                                    <p style="margin:0 0 6px;font-size:14px;line-height:1.6;color:#334155;">&bull;&nbsp; Access bills and download PDF statements</p>
+                                    <p style="margin:0;font-size:14px;line-height:1.6;color:#334155;">&bull;&nbsp; Make payments and receive instant receipts</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:24px 36px 32px;">
+                        <p style="margin:0;font-size:14px;line-height:1.6;color:#64748b;">
+                            Thank you for choosing WASAC. We are glad to have you on board.
                         </p>
-                        <p style="margin:0;color:#6b7280;font-size:14px;">
-                            Thank you for joining us.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background-color:#f8fafc;border-top:1px solid #e2e8f0;padding:24px 36px;">
+                        <p style="margin:0 0 6px;font-size:12px;line-height:1.6;color:#94a3b8;">
+                            This is an automated message from WASAC Utility Billing. Please do not reply to this email.
+                        </p>
+                        <p style="margin:0;font-size:12px;color:#cbd5e1;">
+                            &copy; 2026 WASAC &mdash; Water &amp; Sanitation Corporation, Kigali, Rwanda.
                         </p>
                     </td>
                 </tr>
