@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>WASAC Utility Bill</title>
+    <style type="text/css">
+        body { font-family: Arial, sans-serif; color: #1f2937; margin: 0; padding: 0; background: #f8fafc; }
+        .page { width: 100%; padding: 24px; box-sizing: border-box; }
+        .card { background: #ffffff; border: 1px solid #dbe4ee; border-radius: 8px; overflow: hidden; }
+        .header { background: #0f4c81; color: #ffffff; padding: 18px 20px; }
+        .header-title { font-size: 20px; font-weight: bold; }
+        .header-subtitle { font-size: 12px; margin-top: 4px; letter-spacing: 0.4px; }
+        .content { padding: 20px; }
+        .row { width: 100%; margin-bottom: 14px; }
+        .col-left { width: 58%; display: inline-block; vertical-align: top; }
+        .col-right { width: 40%; display: inline-block; vertical-align: top; text-align: right; }
+        .label { color: #6b7280; font-size: 11px; }
+        .value { color: #111827; font-size: 13px; font-weight: bold; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; background: #e0f2fe; color: #075985; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th { background: #f1f5f9; color: #334155; text-align: left; padding: 9px; border: 1px solid #e2e8f0; font-size: 12px; }
+        td { padding: 9px; border: 1px solid #e2e8f0; font-size: 12px; }
+        .text-right { text-align: right; }
+        .totals { margin-top: 18px; width: 46%; margin-left: auto; border: 1px solid #dbe4ee; border-radius: 8px; }
+        .totals-row { padding: 10px 12px; border-bottom: 1px solid #edf2f7; font-size: 12px; }
+        .totals-row:last-child { border-bottom: none; }
+        .totals-key { float: left; color: #475569; }
+        .totals-value { float: right; font-weight: bold; color: #111827; }
+        .clear { clear: both; }
+        .footer { margin-top: 18px; font-size: 11px; color: #64748b; }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="card">
+        <div class="header">
+            <div class="header-title">WASAC Utility Billing</div>
+            <div class="header-subtitle">UTILITY BILL</div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-left">
+                    <div class="label">Customer</div>
+                    <div class="value" th:text="${bill.customerName}">Customer Name</div>
+                    <div class="label">Email</div>
+                    <div class="value" th:text="${bill.customerEmail}">customer@example.com</div>
+                    <div class="label">Meter Number</div>
+                    <div class="value" th:text="${bill.meterNumber}">MTR-0001</div>
+                </div>
+                <div class="col-right">
+                    <div class="label">Bill Reference</div>
+                    <div class="value" th:text="${bill.billReference}">BILL-REF</div>
+                    <div class="label">Issue Date</div>
+                    <div class="value" th:text="${#temporals.format(bill.createdAt, 'yyyy-MM-dd')}">2026-01-01</div>
+                    <div class="label">Due Date</div>
+                    <div class="value" th:text="${bill.dueDate}">2026-01-31</div>
+                    <div style="margin-top: 8px;">
+                        <span class="badge" th:text="${bill.status}">UNPAID</span>
+                    </div>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th class="text-right">Qty</th>
+                    <th class="text-right">Unit Price (FRW)</th>
+                    <th class="text-right">Amount (FRW)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${lineItems}">
+                    <td th:text="${item.description}">Water usage</td>
+                    <td class="text-right" th:text="${item.quantity}">1</td>
+                    <td class="text-right" th:text="${item.unitPrice}">100</td>
+                    <td class="text-right" th:text="${item.amount}">100</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lineItems)}">
+                    <td colspan="4" style="text-align: center; color: #64748b;">No line items available for this bill.</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="totals">
+                <div class="totals-row">
+                    <span class="totals-key">Amount Due</span>
+                    <span class="totals-value" th:text="${amountDue + ' FRW'}">0 FRW</span>
+                    <div class="clear"></div>
+                </div>
+                <div class="totals-row">
+                    <span class="totals-key">Paid</span>
+                    <span class="totals-value" th:text="${paidAmount + ' FRW'}">0 FRW</span>
+                    <div class="clear"></div>
+                </div>
+                <div class="totals-row">
+                    <span class="totals-key">Outstanding</span>
+                    <span class="totals-value" th:text="${outstandingBalance + ' FRW'}">0 FRW</span>
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+            <div class="footer">
+                Please pay your outstanding balance before the due date to avoid late-payment penalties.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

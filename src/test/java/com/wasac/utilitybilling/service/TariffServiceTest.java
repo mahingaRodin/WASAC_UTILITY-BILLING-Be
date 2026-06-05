@@ -2,6 +2,7 @@ package com.wasac.utilitybilling.service;
 
 import com.wasac.utilitybilling.domain.enums.TariffType;
 import com.wasac.utilitybilling.dto.TariffConfigurationRequest;
+import com.wasac.utilitybilling.exception.BadRequestException;
 import com.wasac.utilitybilling.service.impl.TariffServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,13 +20,28 @@ class TariffServiceTest {
     private com.wasac.utilitybilling.repository.TariffTierRepository tariffTierRepository;
     @Mock
     private com.wasac.utilitybilling.repository.ChargeConfigurationRepository chargeConfigurationRepository;
+    @Mock
+    private NotificationService notificationService;
     @InjectMocks
     private TariffServiceImpl tariffService;
+    @Mock
+    private com.wasac.utilitybilling.mapper.TariffMapper tariffMapper;
 
     @Test
     void shouldRejectFlatWithoutRate() {
         TariffConfigurationRequest request = new TariffConfigurationRequest();
         request.setTariffType(TariffType.FLAT);
-        assertThrows(RuntimeException.class, () -> tariffService.createTariff(request));
+        assertThrows(BadRequestException.class, () -> tariffService.createTariff(request));
+    }
+
+    @Test
+    void shouldRejectEffectiveFromInPast() {
+        TariffConfigurationRequest request = new TariffConfigurationRequest();
+        request.setTariffType(TariffType.FLAT);
+        request.setFlatRate(java.math.BigDecimal.ONE);
+        request.setUtilityType(com.wasac.utilitybilling.domain.enums.UtilityType.WATER);
+        request.setVersion(1);
+        request.setEffectiveFrom(java.time.LocalDate.now().minusDays(1));
+        assertThrows(BadRequestException.class, () -> tariffService.createTariff(request));
     }
 }
