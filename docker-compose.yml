@@ -1,29 +1,29 @@
 services:
   postgres:
     image: postgres:17
-    container_name: template_postgres
+    container_name: wasac_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: template_db
-      POSTGRES_USER: test_user
-      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: wasac_billing_db
+      POSTGRES_USER: wasac_user
+      POSTGRES_PASSWORD: wasac_pass_2026
     ports:
       - "5433:5432"
     volumes:
-      - template_postgres_data:/var/lib/postgresql/data
+      - wasac_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U test_user -d template_db"]
+      test: ["CMD-SHELL", "pg_isready -U wasac_user -d wasac_billing_db"]
       interval: 5s
       timeout: 5s
       retries: 5
     networks:
-      - template_network
+      - wasac_network
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: template_app
+    container_name: wasac_app
     restart: unless-stopped
     depends_on:
       postgres:
@@ -33,13 +33,13 @@ services:
     env_file:
       - .env
     environment:
-      DB_URL: jdbc:postgresql://postgres:5432/template_db
+      DB_URL: jdbc:postgresql://postgres:5432/wasac_billing_db
     networks:
-      - template_network
+      - wasac_network
 
 volumes:
-  template_postgres_data:
+  wasac_postgres_data:
 
 networks:
-  template_network:
+  wasac_network:
     driver: bridge

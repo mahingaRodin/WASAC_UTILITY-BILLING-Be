@@ -8,11 +8,11 @@
 		<version>4.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.java_ne_practical_tplt</groupId>
-	<artifactId>Template</artifactId>
+	<groupId>com.wasac.utilitybilling</groupId>
+	<artifactId>wasac-utility-billing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>WASAC Utility Billing</name>
+	<description>WASAC Utility Billing backend service</description>
 	<url/>
 	<licenses>
 		<license/>
