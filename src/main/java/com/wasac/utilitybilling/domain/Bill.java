@@ -1,5 +1,6 @@
 package com.wasac.utilitybilling.domain;
 
+import com.wasac.utilitybilling.domain.enums.BillApprovalStatus;
 import com.wasac.utilitybilling.domain.enums.BillStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -72,6 +73,10 @@ public class Bill {
     @Column(nullable = false, length = 20)
     private BillStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "approval_status", nullable = false, length = 20)
+    private BillApprovalStatus approvalStatus;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -85,6 +90,9 @@ public class Bill {
         updatedAt = now;
         if (paidAmount == null) {
             paidAmount = BigDecimal.ZERO;
+        }
+        if (approvalStatus == null) {
+            approvalStatus = BillApprovalStatus.PENDING;
         }
     }
 

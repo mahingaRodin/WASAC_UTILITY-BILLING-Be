@@ -1,6 +1,7 @@
 package com.wasac.utilitybilling.domain;
 
 import com.wasac.utilitybilling.domain.enums.PaymentMethod;
+import com.wasac.utilitybilling.domain.enums.PaymentStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -52,11 +53,18 @@ public class Payment {
     @Column(name = "payment_date", nullable = false)
     private LocalDate paymentDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private PaymentStatus status;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
+        if (status == null) {
+            status = PaymentStatus.PENDING;
+        }
     }
 }
