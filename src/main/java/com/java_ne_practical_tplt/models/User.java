@@ -37,6 +37,9 @@ public class User {
     @Column(nullable = false)
     private EUserRole role;
 
+    @Column(nullable = false)
+    private boolean emailVerified;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastLogin;
