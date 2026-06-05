@@ -1,5 +1,6 @@
 package com.wasac.utilitybilling.service;
 
+import com.wasac.utilitybilling.dto.ActivateAccountRequest;
 import com.wasac.utilitybilling.dto.ApiResponse;
 import com.wasac.utilitybilling.dto.AuthResponse;
 import com.wasac.utilitybilling.dto.ConfirmOtpRequest;
@@ -14,4 +15,5 @@ public interface AuthService {
     ApiResponse<String> confirmEmailVerification(ConfirmOtpRequest request);
     ApiResponse<String> requestPasswordReset(EmailRequest request);
     ApiResponse<String> resetPassword(ResetPasswordRequest request);
+    ApiResponse<String> activateAccount(ActivateAccountRequest request);
 }

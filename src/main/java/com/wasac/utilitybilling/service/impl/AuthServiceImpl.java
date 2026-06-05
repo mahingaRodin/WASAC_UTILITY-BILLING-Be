@@ -2,7 +2,9 @@ package com.wasac.utilitybilling.service.impl;
 
 import com.wasac.utilitybilling.domain.User;
 import com.wasac.utilitybilling.domain.enums.OtpPurpose;
+import com.wasac.utilitybilling.domain.enums.UserRole;
 import com.wasac.utilitybilling.domain.enums.UserStatus;
+import com.wasac.utilitybilling.dto.ActivateAccountRequest;
 import com.wasac.utilitybilling.dto.ApiResponse;
 import com.wasac.utilitybilling.dto.AuthResponse;
 import com.wasac.utilitybilling.dto.ConfirmOtpRequest;
@@ -16,6 +18,7 @@ import com.wasac.utilitybilling.security.JwtProvider;
 import com.wasac.utilitybilling.service.AuthService;
 import com.wasac.utilitybilling.service.CustomUserDetailsService;
 import com.wasac.utilitybilling.service.MailService;
+import com.wasac.utilitybilling.service.NotificationService;
 import com.wasac.utilitybilling.service.OtpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,6 +40,7 @@ public class AuthServiceImpl implements AuthService {
     private final CustomUserDetailsService userDetailsService;
     private final OtpService otpService;
     private final MailService mailService;
+    private final NotificationService notificationService;
 
     @Override
     @Transactional
@@ -50,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
                 .phone(request.getPhone())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .status(UserStatus.ACTIVE)
-                .role(request.getRole())
+                .role(UserRole.ROLE_CUSTOMER)
                 .emailVerified(false)
                 .build());
 
@@ -62,6 +66,10 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public AuthResponse login(String email, String password) {
         User user = getUser(email);
+        if (user.isMustChangePassword()) {
+            throw new BadRequestException(
+                    "You must set your own password before logging in. Use /api/auth/activate-account.");
+        }
         if (!user.isEmailVerified()) {
             throw new BadRequestException("Please verify your email.");
         }
@@ -111,12 +119,36 @@ public class AuthServiceImpl implements AuthService {
         otpService.validateOtp(user, request.getOtp(), OtpPurpose.PASSWORD_RESET);
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
-        mailService.sendTemplateEmail(user.getEmail(), "account-notification", Map.of(
-                "userName", user.getFullName(),
-                "title", "Password Updated",
-                "message", "Your password has been updated successfully."
-        ));
+        notificationService.sendPasswordChangedNotification(user.getEmail(), user.getFullName());
         return ApiResponse.<String>builder().success(true).message("Password reset successful.").build();
+    }
+
+    @Override
+    @Transactional
+    public ApiResponse<String> activateAccount(ActivateAccountRequest request) {
+        User user = getUser(request.getEmail());
+        if (!user.isMustChangePassword()) {
+            throw new BadRequestException("This account is already active. Use the standard login or password reset.");
+        }
+        if (!passwordEncoder.matches(request.getTemporaryPassword(), user.getPassword())) {
+            throw new BadRequestException("Invalid temporary password.");
+        }
+        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
+            throw new BadRequestException("New password must be different from the temporary password.");
+        }
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        user.setMustChangePassword(false);
+        user.setEmailVerified(true);
+        userRepository.save(user);
+
+        mailService.sendTemplateEmail(user.getEmail(), "welcome", Map.of(
+                "userName", user.getFullName(),
+                "appName", "WASAC Utility Billing"));
+        notificationService.sendPasswordChangedNotification(user.getEmail(), user.getFullName());
+        return ApiResponse.<String>builder()
+                .success(true)
+                .message("Account activated. You can now log in with your new password.")
+                .build();
     }
 
     private User getUser(String email) {

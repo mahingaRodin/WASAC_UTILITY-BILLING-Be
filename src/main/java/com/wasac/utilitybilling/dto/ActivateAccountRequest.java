@@ -8,19 +8,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDTO {
-    @NotBlank
-    @Size(max = 150)
-    private String fullName;
-
+public class ActivateAccountRequest {
     @NotBlank
     @Email
     private String email;
 
     @NotBlank
-    private String phone;
+    private String temporaryPassword;
 
     @NotBlank
     @Size(min = 8)
-    private String password;
+    private String newPassword;
 }
