@@ -1,23 +1,21 @@
 $kind: http-request
 name: Login
 method: POST
-url: '{{baseUrl}}/api/auth/login'
+url: "{{baseUrl}}/api/auth/login"
 order: 2000
 auth:
   type: noauth
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-
     {
-      "email": "admin@wasac.rw",
-      "password": "password123"
+      "email": "agressive.one04@gmail.com",
+      "password": "Rodin!132"
     }
 scripts:
   - type: afterResponse
-    language: text/javascript
     code: |-
       pm.test("Login successful", function() {
         var json = pm.response.json();
@@ -25,3 +23,4 @@ scripts:
           pm.environment.set("authToken", json.data.token);
         }
       });
+    language: text/javascript
